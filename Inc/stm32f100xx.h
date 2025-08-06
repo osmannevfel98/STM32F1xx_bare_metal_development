@@ -138,12 +138,18 @@ typedef struct {
 
 #define ADC1  ((ADC_TypeDef *) 0x40012400UL) /* ADC1 Base Address */
 
+typedef enum {
+    GPIO_A, GPIO_B, GPIO_C, GPIO_D, GPIO_E
+} GPIO_Port;
+
 /* Function Prototypes */
 void RCC_EnableClock(void);
-void GPIOA_SetPinOutput(uint8_t pin);
-void GPIOA_SetPinHigh(uint8_t pin);
-void GPIO_SetPinOutput2(enum GPIO,uint8_t pin);
-void GPIOA_SetPinLow(uint8_t pin);
+//void GPIOA_SetPinOutput(uint8_t pin);
+//void GPIOA_SetPinHigh(uint8_t pin);
+void GPIO_SetPinHigh(GPIO_Port port, uint8_t pin);
+void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin);
+//void GPIOA_SetPinLow(uint8_t pin);
+void GPIO_SetPinLow(GPIO_Port port,uint8_t pin);
 void USART1_Init(uint32_t baudrate);
 void USART1_SendChar(char c);
 void USART1_SendString(char *str);

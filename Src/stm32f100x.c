@@ -22,27 +22,35 @@ void RCC_EnableClock(void) {
   RCC->APB1ENR |= (1 << 18); // Enable USART3 Clock
 }
 
-uint64_t GPIOx[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
-enum GPIO {
-	GPIO_A, GPIO_B, GPIO_C, GPIO_D, GPIO_E
-};
+GPIO_TypeDef *GPIOx[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
 
-void GPIO_SetPinOutput2(enum GPIO, uint8_t pin){
-	GPIOx[GPIO]->CRL &= ~(0xF << (pin * 4));
-	GPIOx[GPIO]->CRL |= (0x3 << (pin * 4));
+void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin) {
+    GPIOx[port]->CRL &= ~(0xF << (pin * 4));
+    GPIOx[port]->CRL |= (0x3 << (pin * 4));
 }
 
+/*
 void GPIOA_SetPinOutput(uint8_t pin) {
   GPIOA->CRL &= ~(0xF << (pin * 4));
   GPIOA->CRL |= (0x3 << (pin * 4));
 }
-
+*/
+void GPIO_SetPinHigh(GPIO_Port port, uint8_t pin) {
+    GPIOx[port]->BSRR = (1 << pin);
+}
+/*
 void GPIOA_SetPinHigh(uint8_t pin) {
   GPIOA->BSRR = (1 << pin);
 }
+*/
 
+/*
 void GPIOA_SetPinLow(uint8_t pin) {
   GPIOA->BRR = (1 << pin);
+}
+*/
+void GPIO_SetPinLow(GPIO_Port port,uint8_t pin) {
+    GPIOx[port]->BRR = (1 << pin);
 }
 
 void USART1_Init(uint32_t baudrate) {

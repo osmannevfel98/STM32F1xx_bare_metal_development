@@ -1,0 +1,11 @@
+../Src/stm32f100x.c:10:6:RCC_EnableClock	1
+../Src/stm32f100x.c:27:6:GPIO_SetPinOutput	1
+../Src/stm32f100x.c:38:6:GPIO_SetPinHigh	1
+../Src/stm32f100x.c:52:6:GPIO_SetPinLow	1
+../Src/stm32f100x.c:56:6:USART1_Init	1
+../Src/stm32f100x.c:62:6:USART1_SendChar	2
+../Src/stm32f100x.c:67:6:USART1_SendString	2
+../Src/stm32f100x.c:71:6:TIM2_Init	1
+../Src/stm32f100x.c:78:6:Delay_ms	2
+../Src/stm32f100x.c:83:6:ADC1_Init	1
+../Src/stm32f100x.c:89:10:ADC1_Read	2
