@@ -35,6 +35,7 @@
 #define GPIOE_BASE        (APB2_BASE + 0x1800UL)  /* GPIO Port E */
 #define AFIO_BASE         (APB2_BASE + 0x0000UL)  /* Alternate Function IO */
 #define EXTI_BASE         (APB2_BASE + 0x0400UL)  /* External Interrupt Controller */
+#define TIM1_BASE		  (APB2_BASE + 0x2C00UL)  /* Timer 1 */
 
 /*** APB1 Peripherals ***/
 #define USART1_BASE       (APB2_BASE + 0x3800UL)  /* USART1 */
@@ -108,6 +109,7 @@ typedef struct {
   __IO uint32_t ARR;
 } TIM_TypeDef;
 
+#define TIM1  ((TIM_TypeDef *) TIM1_BASE)
 #define TIM2  ((TIM_TypeDef *) TIM2_BASE)
 #define TIM3  ((TIM_TypeDef *) TIM3_BASE)
 #define TIM4  ((TIM_TypeDef *) TIM4_BASE)
@@ -142,18 +144,34 @@ typedef enum {
     GPIO_A, GPIO_B, GPIO_C, GPIO_D, GPIO_E
 } GPIO_Port;
 
+typedef enum {
+	USART_1, USART_2, USART_3
+} USART_Port;
+
+typedef enum {
+	TIM_2, TIM_3, TIM_4
+} TIM_Port;
+
 /* Function Prototypes */
-void RCC_EnableClock(void);
+//void RCC_EnableClock(void);
 //void GPIOA_SetPinOutput(uint8_t pin);
 //void GPIOA_SetPinHigh(uint8_t pin);
+void RCC_GPIO_Enable(void);
+void RCC_USART_Enable(void);
+void RCC_TIM_Enable(void);
+void RCC_DMA_Enable(void);
 void GPIO_SetPinHigh(GPIO_Port port, uint8_t pin);
 void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin);
 //void GPIOA_SetPinLow(uint8_t pin);
 void GPIO_SetPinLow(GPIO_Port port,uint8_t pin);
-void USART1_Init(uint32_t baudrate);
-void USART1_SendChar(char c);
-void USART1_SendString(char *str);
-void TIM2_Init(uint16_t prescaler, uint16_t arr);
+void USART_Init(USART_Port port, uint32_t baudrate);
+//void USART1_Init(uint32_t baudrate);
+//void USART1_SendChar(char c);
+void USART_SendChar(USART_Port port, char c);
+void USART_SendString(USART_Port port, char *str);
+//void USART1_SendString(char *str);
+void TIM_Init(TIM_Port port, uint16_t prescaler, uint16_t arr);
+//void TIM2_Init(uint16_t prescaler, uint16_t arr);
 void Delay_ms(uint32_t ms);
 void ADC1_Init(void);
 uint16_t ADC1_Read(void);

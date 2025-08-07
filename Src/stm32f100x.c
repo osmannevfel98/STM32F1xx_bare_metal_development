@@ -7,22 +7,33 @@
 
 #include "stm32f100xx.h"
 
-void RCC_EnableClock(void) {
-  RCC->AHBENR  |= (1 << 0);  // Enable DMA1 Clock
+GPIO_TypeDef *GPIOx[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
+USART_TypeDef *USARTx[] = {USART1, USART2, USART3};
+TIM_TypeDef *TIMx[] = {TIM1, TIM2, TIM3, TIM4};
+
+void RCC_GPIO_Enable(void){
   RCC->APB2ENR |= (1 << 2);  // Enable GPIOA Clock
   RCC->APB2ENR |= (1 << 3);  // Enable GPIOB Clock
   RCC->APB2ENR |= (1 << 4);  // Enable GPIOC Clock
   RCC->APB2ENR |= (1 << 5);  // Enable GPIOD Clock
   RCC->APB2ENR |= (1 << 6);  // Enable GPIOE Clock
+}
+
+void RCC_USART_Enable(void){
   RCC->APB2ENR |= (1 << 14); // Enable USART1 Clock
-  RCC->APB1ENR |= (1 << 0);  // Enable TIM2 Clock
-  RCC->APB1ENR |= (1 << 1);  // Enable TIM3 Clock
-  RCC->APB1ENR |= (1 << 2);  // Enable TIM4 Clock
   RCC->APB1ENR |= (1 << 17); // Enable USART2 Clock
   RCC->APB1ENR |= (1 << 18); // Enable USART3 Clock
 }
 
-GPIO_TypeDef *GPIOx[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
+void RCC_TIM_Enable(void){
+  RCC->APB1ENR |= (1 << 0);  // Enable TIM2 Clock
+  RCC->APB1ENR |= (1 << 1);  // Enable TIM3 Clock
+  RCC->APB1ENR |= (1 << 2);  // Enable TIM4 Clock
+}
+
+void RCC_DMA_Enable(void) {
+  RCC->AHBENR  |= (1 << 0);  // Enable DMA1 Clock
+}
 
 void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin) {
     GPIOx[port]->CRL &= ~(0xF << (pin * 4));
@@ -53,6 +64,20 @@ void GPIO_SetPinLow(GPIO_Port port,uint8_t pin) {
     GPIOx[port]->BRR = (1 << pin);
 }
 
+void USART_Init(USART_Port port, uint32_t baudrate) {
+  RCC_USART_Enable();
+  USARTx[port]->BRR = 72000000 / baudrate;
+  USARTx[port]->CR1 = (1 << 13) | (1 << 3) | (1 << 2);
+}
+void USART_SendChar(USART_Port port, char c) {
+  while (!(USARTx[port]->SR & (1 << 7)));
+  USARTx[port]->DR = c;
+}
+
+void USART_SendString(USART_Port port, char *str) {
+  while (*str) USART_SendChar(port, *str++);
+}
+/*
 void USART1_Init(uint32_t baudrate) {
   RCC->APB2ENR |= (1 << 14);
   USART1->BRR = 72000000 / baudrate;
@@ -67,12 +92,21 @@ void USART1_SendChar(char c) {
 void USART1_SendString(char *str) {
   while (*str) USART1_SendChar(*str++);
 }
+*/
 
+/*
 void TIM2_Init(uint16_t prescaler, uint16_t arr) {
   RCC->APB1ENR |= (1 << 0);
   TIM2->PSC = prescaler - 1;
   TIM2->ARR = arr - 1;
   TIM2->CR1 |= (1 << 0);
+}
+*/
+void TIM_Init(TIM_Port port, uint16_t prescaler, uint16_t arr) {
+  RCC_TIM_Enable();
+  TIMx[port]->PSC = prescaler - 1;
+  TIMx[port]->ARR = arr - 1;
+  TIMx[port]->CR1 |= (1 << 0);
 }
 
 void Delay_ms(uint32_t ms) {

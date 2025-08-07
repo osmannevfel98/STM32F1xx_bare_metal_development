@@ -74,35 +74,43 @@ Discarded input sections
  .text          0x00000000        0x0 ./Src/stm32f100x.o
  .data          0x00000000        0x0 ./Src/stm32f100x.o
  .bss           0x00000000        0x0 ./Src/stm32f100x.o
- .text.RCC_EnableClock
-                0x00000000       0xa0 ./Src/stm32f100x.o
  .data.GPIOx    0x00000000       0x14 ./Src/stm32f100x.o
+ .data.USARTx   0x00000000        0xc ./Src/stm32f100x.o
+ .data.TIMx     0x00000000       0x10 ./Src/stm32f100x.o
+ .text.RCC_GPIO_Enable
+                0x00000000       0x4c ./Src/stm32f100x.o
+ .text.RCC_USART_Enable
+                0x00000000       0x34 ./Src/stm32f100x.o
+ .text.RCC_TIM_Enable
+                0x00000000       0x34 ./Src/stm32f100x.o
+ .text.RCC_DMA_Enable
+                0x00000000       0x1c ./Src/stm32f100x.o
  .text.GPIO_SetPinOutput
                 0x00000000       0x64 ./Src/stm32f100x.o
  .text.GPIO_SetPinHigh
                 0x00000000       0x34 ./Src/stm32f100x.o
  .text.GPIO_SetPinLow
                 0x00000000       0x34 ./Src/stm32f100x.o
- .text.USART1_Init
+ .text.USART_Init
                 0x00000000       0x40 ./Src/stm32f100x.o
- .text.USART1_SendChar
-                0x00000000       0x2c ./Src/stm32f100x.o
- .text.USART1_SendString
-                0x00000000       0x2a ./Src/stm32f100x.o
- .text.TIM2_Init
-                0x00000000       0x50 ./Src/stm32f100x.o
+ .text.USART_SendChar
+                0x00000000       0x40 ./Src/stm32f100x.o
+ .text.USART_SendString
+                0x00000000       0x32 ./Src/stm32f100x.o
+ .text.TIM_Init
+                0x00000000       0x5c ./Src/stm32f100x.o
  .text.Delay_ms
                 0x00000000       0x2a ./Src/stm32f100x.o
  .text.ADC1_Init
                 0x00000000       0x38 ./Src/stm32f100x.o
  .text.ADC1_Read
                 0x00000000       0x30 ./Src/stm32f100x.o
- .debug_info    0x00000000      0x575 ./Src/stm32f100x.o
- .debug_abbrev  0x00000000      0x156 ./Src/stm32f100x.o
+ .debug_info    0x00000000      0x674 ./Src/stm32f100x.o
+ .debug_abbrev  0x00000000      0x15d ./Src/stm32f100x.o
  .debug_aranges
-                0x00000000       0x70 ./Src/stm32f100x.o
+                0x00000000       0x88 ./Src/stm32f100x.o
  .debug_rnglists
-                0x00000000       0x50 ./Src/stm32f100x.o
+                0x00000000       0x61 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x72 ./Src/stm32f100x.o
  .debug_macro   0x00000000      0xad2 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x22 ./Src/stm32f100x.o
@@ -111,11 +119,11 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x6a ./Src/stm32f100x.o
  .debug_macro   0x00000000      0x1df ./Src/stm32f100x.o
- .debug_macro   0x00000000       0xdd ./Src/stm32f100x.o
- .debug_line    0x00000000      0x5be ./Src/stm32f100x.o
- .debug_str     0x00000000     0x4426 ./Src/stm32f100x.o
+ .debug_macro   0x00000000       0xe9 ./Src/stm32f100x.o
+ .debug_line    0x00000000      0x609 ./Src/stm32f100x.o
+ .debug_str     0x00000000     0x44dd ./Src/stm32f100x.o
  .comment       0x00000000       0x44 ./Src/stm32f100x.o
- .debug_frame   0x00000000      0x1ac ./Src/stm32f100x.o
+ .debug_frame   0x00000000      0x204 ./Src/stm32f100x.o
  .ARM.attributes
                 0x00000000       0x2d ./Src/stm32f100x.o
  .group         0x00000000        0xc ./Src/syscalls.o
