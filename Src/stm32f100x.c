@@ -36,8 +36,13 @@ void RCC_DMA_Enable(void) {
 }
 
 void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin) {
-    GPIOx[port]->CRL &= ~(0xF << (pin * 4));
-    GPIOx[port]->CRL |= (0x3 << (pin * 4));
+	if(pin < 8){
+		GPIOx[port]->CRL &= ~(0xF << (pin * 4));
+		GPIOx[port]->CRL |= (0x3 << (pin * 4));
+	} else if(pin >= 8 && pin <=15){
+		GPIOx[port]->CRH &= ~(0xF << (pin % 8 * 4));
+		GPIOx[port]->CRH |= (0x3 << (pin % 8 * 4));
+	}
 }
 
 /*
@@ -71,7 +76,7 @@ void USART_Init(USART_Port port, uint32_t baudrate) {
 }
 void USART_SendChar(USART_Port port, char c) {
   while (!(USARTx[port]->SR & (1 << 7)));
-  USARTx[port]->DR = c;
+  USARTx[port]->DR = (uint8_t)c;
 }
 
 void USART_SendString(USART_Port port, char *str) {
