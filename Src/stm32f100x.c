@@ -26,6 +26,7 @@ void RCC_USART_Enable(void){
 }
 
 void RCC_TIM_Enable(void){
+  RCC->APB2ENR |= (1 << 11); // Enable TIM1 Clock
   RCC->APB1ENR |= (1 << 0);  // Enable TIM2 Clock
   RCC->APB1ENR |= (1 << 1);  // Enable TIM3 Clock
   RCC->APB1ENR |= (1 << 2);  // Enable TIM4 Clock
