@@ -155,14 +155,17 @@ typedef enum {
 	TIM_2, TIM_3, TIM_4
 } TIM_Port;
 
+
 /* Function Prototypes */
 void RCC_GPIO_Enable(void);
 void RCC_USART_Enable(void);
 void RCC_TIM_Enable(void);
 void RCC_DMA_Enable(void);
+void RCC_ADC_Enable(void);
 void GPIO_SetPinHigh(GPIO_Port port, uint8_t pin);
 void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin);
 void GPIO_SetPinLow(GPIO_Port port,uint8_t pin);
+uint8_t GPIO_ReadPin(GPIO_Port port, uint8_t pin);
 void USART_Init(USART_Port port, uint32_t baudrate);
 void USART_SendChar(USART_Port port, char c);
 void USART_SendString(USART_Port port, char *str);

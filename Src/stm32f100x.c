@@ -35,6 +35,10 @@ void RCC_DMA_Enable(void) {
   RCC->AHBENR  |= (1 << 0);  // Enable DMA1 Clock
 }
 
+void RCC_ADC_Enable(void) {
+	RCC->APB2ENR |= (1 << 9);  // Enable ADC1 Clock
+}
+
 void GPIO_SetPinOutput(GPIO_Port port, uint8_t pin) {
 	if(pin < 8){
 		GPIOx[port]->CRL &= ~(0xF << (pin * 4));
@@ -67,6 +71,11 @@ void GPIOA_SetPinLow(uint8_t pin) {
 */
 void GPIO_SetPinLow(GPIO_Port port,uint8_t pin) {
     GPIOx[port]->BRR = (1 << pin);
+}
+
+uint8_t GPIO_ReadPin(GPIO_Port port, uint8_t pin) {
+	uint8_t gpio_output = (GPIOx[port]->IDR >> pin) & 0x1;
+	return gpio_output;
 }
 
 void USART_Init(USART_Port port, uint32_t baudrate) {
@@ -120,7 +129,7 @@ void Delay_ms(uint32_t ms) {
 }
 
 void ADC1_Init(void) {
-  RCC->APB2ENR |= (1 << 9);
+  RCC_ADC_Enable();
   ADC1->CR2 |= (1 << 0);
   ADC1->SMPR2 |= (7 << 0);
 }
