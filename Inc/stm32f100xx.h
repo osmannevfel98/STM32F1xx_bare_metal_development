@@ -45,7 +45,8 @@
 #define TIM2_BASE         (APB1_BASE + 0x0000UL)  /* Timer 2 */
 #define TIM3_BASE         (APB1_BASE + 0x0400UL)  /* Timer 3 */
 #define TIM4_BASE         (APB1_BASE + 0x0800UL)  /* Timer 4 */
-
+#define I2C1_BASE		  (APB1_BASE + 0x5400UL)  /* I2C 1 */
+#define I2C2_BASE		  (APB1_BASE + 0x5800UL)  /* I2C 2 */
 
 /* RCC Register Structure */
 typedef struct {
@@ -60,6 +61,19 @@ typedef struct {
   __IO uint32_t BDCR;
   __IO uint32_t CSR;
 } RCC_TypeDef;
+
+/* I2C Register Structure */
+typedef struct {
+  __IO uint32_t CR1;
+  __IO uint32_t CR2;
+  __IO uint32_t OAR1;
+  __IO uint32_t OAR2;
+  __IO uint32_t DR;
+  __IO uint32_t SR1;
+  __IO uint32_t SR2;
+  __IO uint32_t CCR;
+  __IO uint32_t TRISE;
+} I2C_TypeDef;
 
 /* GPIO Register Structure */
 typedef struct {
@@ -142,6 +156,8 @@ typedef struct {
 #define TIM3  ((TIM_TypeDef *) TIM3_BASE)
 #define TIM4  ((TIM_TypeDef *) TIM4_BASE)
 
+#define I2C1   ((I2C_TypeDef *) I2C1_BASE)
+#define I2C2   ((I2C_TypeDef *) I2C2_BASE)
 
 typedef enum {
     GPIO_A, GPIO_B, GPIO_C, GPIO_D, GPIO_E
@@ -155,6 +171,9 @@ typedef enum {
 	TIM_2, TIM_3, TIM_4
 } TIM_Port;
 
+typedef enum {
+	I2C_1, I2C_2
+} I2C_Port;
 
 /* Function Prototypes */
 void RCC_GPIO_Enable(void);
@@ -169,6 +188,7 @@ uint8_t GPIO_ReadPin(GPIO_Port port, uint8_t pin);
 void USART_Init(USART_Port port, uint32_t baudrate);
 void USART_SendChar(USART_Port port, char c);
 void USART_SendString(USART_Port port, char *str);
+void RCC_I2C_Enable(void);
 void TIM_Init(TIM_Port port, uint16_t prescaler, uint16_t arr);
 void Delay_ms(uint32_t ms);
 void ADC1_Init(void);

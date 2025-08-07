@@ -10,6 +10,7 @@
 GPIO_TypeDef *GPIOx[] = {GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
 USART_TypeDef *USARTx[] = {USART1, USART2, USART3};
 TIM_TypeDef *TIMx[] = {TIM1, TIM2, TIM3, TIM4};
+I2C_TypeDef *I2Cx[] = {I2C1, I2C2};
 
 void RCC_GPIO_Enable(void){
   RCC->APB2ENR |= (1 << 2);  // Enable GPIOA Clock
@@ -25,11 +26,16 @@ void RCC_USART_Enable(void){
   RCC->APB1ENR |= (1 << 18); // Enable USART3 Clock
 }
 
-void RCC_TIM_Enable(void){
+void RCC_TIM_Enable(void) {
   RCC->APB2ENR |= (1 << 11); // Enable TIM1 Clock
   RCC->APB1ENR |= (1 << 0);  // Enable TIM2 Clock
   RCC->APB1ENR |= (1 << 1);  // Enable TIM3 Clock
   RCC->APB1ENR |= (1 << 2);  // Enable TIM4 Clock
+}
+
+void RCC_I2C_Enable(void) {
+  RCC->APB1ENR |= (1 << 21);  // Enable I2C1 Clock
+  RCC->APB1ENR |= (1 << 22);  // Enable I2C2 Clock
 }
 
 void RCC_DMA_Enable(void) {

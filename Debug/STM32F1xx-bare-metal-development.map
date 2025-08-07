@@ -77,12 +77,15 @@ Discarded input sections
  .data.GPIOx    0x00000000       0x14 ./Src/stm32f100x.o
  .data.USARTx   0x00000000        0xc ./Src/stm32f100x.o
  .data.TIMx     0x00000000       0x10 ./Src/stm32f100x.o
+ .data.I2Cx     0x00000000        0x8 ./Src/stm32f100x.o
  .text.RCC_GPIO_Enable
                 0x00000000       0x4c ./Src/stm32f100x.o
  .text.RCC_USART_Enable
                 0x00000000       0x34 ./Src/stm32f100x.o
  .text.RCC_TIM_Enable
-                0x00000000       0x34 ./Src/stm32f100x.o
+                0x00000000       0x40 ./Src/stm32f100x.o
+ .text.RCC_I2C_Enable
+                0x00000000       0x28 ./Src/stm32f100x.o
  .text.RCC_DMA_Enable
                 0x00000000       0x1c ./Src/stm32f100x.o
  .text.RCC_ADC_Enable
@@ -109,12 +112,12 @@ Discarded input sections
                 0x00000000       0x28 ./Src/stm32f100x.o
  .text.ADC1_Read
                 0x00000000       0x30 ./Src/stm32f100x.o
- .debug_info    0x00000000      0x6cc ./Src/stm32f100x.o
+ .debug_info    0x00000000      0x778 ./Src/stm32f100x.o
  .debug_abbrev  0x00000000      0x1a4 ./Src/stm32f100x.o
  .debug_aranges
-                0x00000000       0x98 ./Src/stm32f100x.o
+                0x00000000       0xa0 ./Src/stm32f100x.o
  .debug_rnglists
-                0x00000000       0x6e ./Src/stm32f100x.o
+                0x00000000       0x74 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x72 ./Src/stm32f100x.o
  .debug_macro   0x00000000      0xad2 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x22 ./Src/stm32f100x.o
@@ -123,11 +126,11 @@ Discarded input sections
  .debug_macro   0x00000000      0x103 ./Src/stm32f100x.o
  .debug_macro   0x00000000       0x6a ./Src/stm32f100x.o
  .debug_macro   0x00000000      0x1df ./Src/stm32f100x.o
- .debug_macro   0x00000000       0xfb ./Src/stm32f100x.o
- .debug_line    0x00000000      0x688 ./Src/stm32f100x.o
- .debug_str     0x00000000     0x4523 ./Src/stm32f100x.o
+ .debug_macro   0x00000000      0x116 ./Src/stm32f100x.o
+ .debug_line    0x00000000      0x6af ./Src/stm32f100x.o
+ .debug_str     0x00000000     0x45d7 ./Src/stm32f100x.o
  .comment       0x00000000       0x44 ./Src/stm32f100x.o
- .debug_frame   0x00000000      0x248 ./Src/stm32f100x.o
+ .debug_frame   0x00000000      0x268 ./Src/stm32f100x.o
  .ARM.attributes
                 0x00000000       0x2d ./Src/stm32f100x.o
  .group         0x00000000        0xc ./Src/syscalls.o
