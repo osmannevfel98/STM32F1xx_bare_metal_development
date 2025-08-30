@@ -12,6 +12,29 @@
 
 #define __IO volatile
 
+#define I2C_WRITE 0
+#define I2C_READ  1
+
+// I2C_CR1 bits
+#define I2C_CR1_PE        (1U << 0)
+#define I2C_CR1_START     (1U << 8)
+#define I2C_CR1_STOP      (1U << 9)
+#define I2C_CR1_ACK       (1U << 10)
+#define I2C_CR1_SWRST     (1U << 15)
+
+// I2C_SR1 bits
+#define I2C_SR1_SB        (1U << 0)
+#define I2C_SR1_ADDR      (1U << 1)
+#define I2C_SR1_BTF       (1U << 2)
+#define I2C_SR1_RXNE      (1U << 6)
+#define I2C_SR1_TXE       (1U << 7)
+#define I2C_SR1_BERR      (1U << 8)
+#define I2C_SR1_ARLO      (1U << 9)
+#define I2C_SR1_AF        (1U << 10)  // Acknowledge failure (NACK)
+#define I2C_SR1_OVR       (1U << 11)
+#define I2C_SR1_TIMEOUT   (1U << 14)
+
+
 /*** Memory Base Addresses ***/
 #define FLASH_PROG_BASE   (0x0008000UL)  /* Flash Program Memory Base Address */
 #define SRAM_BASE         (0x20000000UL) /* SRAM Base Address */
@@ -224,6 +247,14 @@ typedef struct {
   __IO uint32_t CMAR7;
 } DMA_TypeDef;
 
+typedef enum {
+  I2C_OK = 0,
+  I2C_ERROR_TIMEOUT,
+  I2C_ERROR_NACK,
+  I2C_ERROR_BUS,       // bus error
+  I2C_ERROR_ARB_LOST   // arbitration lost
+} I2C_Status;
+
 #define RCC    ((RCC_TypeDef *) RCC_BASE)
 
 #define GPIOA  ((GPIO_TypeDef *) GPIOA_BASE)
@@ -311,11 +342,17 @@ void USART_Init(USART_Port port, uint32_t baudrate);
 void USART_SendChar(USART_Port port, char c);
 void USART_SendString(USART_Port port, char *str);
 
-void ADC1_Init(void);
+void ADC_Init(void);
 void TIM_Init(TIM_Port port, uint16_t prescaler, uint16_t arr);
 void Delay_ms(uint32_t ms);
 uint16_t ADC1_Read(void);
 
+I2C_Status I2C_Start(I2C_Port port, uint8_t slave_addr_7bit, uint8_t direction, uint32_t timeout_ms);
+I2C_Status I2C_WriteByte(I2C_Port port, uint8_t data, uint32_t timeout_ms);
+I2C_Status I2C_ReadByte(I2C_Port port, uint8_t *out_data, uint8_t ack, uint32_t timeout_ms);
+void I2C_Stop(I2C_Port port);
+
+static inline I2C_TypeDef* I2C_GetPort(I2C_Port port);
 /*
  * void RCC_EnableClock(void);
  * void GPIOA_SetPinOutput(uint8_t pin);
